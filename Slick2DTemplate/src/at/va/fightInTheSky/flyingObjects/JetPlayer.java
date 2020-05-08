@@ -49,17 +49,19 @@ public class JetPlayer implements CollisionActor {
         this.collisionShape.setCenterX(this.x + 50);
         this.collisionShape.setCenterY(this.y + 50);
 
-        for (CollisionActor collisionActor : collisionActors) {
-            if (this.collisionShape.intersects(collisionActor.getCollisionShape())) {
-                System.out.println("Player collision");
-                lives--;
-                this.x = 990;
-                this.y = 540;
-                if (lives == 0) {
-                    isGameNotOver = false;
-//                    System.out.println("GAME OVER");
-//                    TimeUnit.SECONDS.sleep(5);
-//                    System.exit(0);
+        for (int i = 0; i < collisionActors.size(); i++) {
+            for (int j = 0; j < collisionActors.size(); j++) {
+                if (collisionActors.get(i) ==this.collisionActors && collisionActors.get(i).getCollisionShape().intersects(collisionActors.get(j).getCollisionShape()) && collisionActors.get(i) != collisionActors.get(j)) {
+                    System.out.println("Player collision");
+                    lives--;
+                    this.x = 990;
+                    this.y = 540;
+                    if (lives == 0) {
+                        isGameNotOver = false;
+//                        System.out.println("GAME OVER");
+//                        TimeUnit.SECONDS.sleep(5);
+//                        System.exit(0);
+                    }
                 }
             }
         }

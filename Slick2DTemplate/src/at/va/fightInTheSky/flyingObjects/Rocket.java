@@ -52,7 +52,7 @@ public class Rocket implements CollisionActor {
     public void update(GameContainer gameContainer, int delta) throws SlickException, InterruptedException {
         this.y += (float) delta / this.speed;
         if (this.y > 1080) {
-            this.y = 0; 
+            this.y = 0;
         }
         this.collisionShape.setCenterX(this.x + 15);
         this.collisionShape.setCenterY(this.y + 25);
