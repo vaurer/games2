@@ -1,0 +1,22 @@
+<component name="libraryTable">
+  <library name="lib">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/Slick2DTemplate/lib/jorbis-0.0.15.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Slick2DTemplate/lib/slick.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Slick2DTemplate/lib/tinylinepp.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Slick2DTemplate/lib/lwjgl_util.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Slick2DTemplate/lib/natives-mac.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Slick2DTemplate/lib/slick-examples.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Slick2DTemplate/lib/jnlp.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Slick2DTemplate/lib/natives-windows.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Slick2DTemplate/lib/jinput.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Slick2DTemplate/lib/natives-linux.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Slick2DTemplate/lib/jogg-0.0.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Slick2DTemplate/lib/ibxm.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Slick2DTemplate/lib/lwjgl_util_applet.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Slick2DTemplate/lib/lwjgl.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
