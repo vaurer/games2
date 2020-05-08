@@ -32,13 +32,13 @@ public class JetEnemy implements CollisionActor {
     }
 
     @Override
-    public void render(Graphics graphics) throws SlickException {
+     public void render(Graphics graphics) throws SlickException {
         planeEnemyImage.draw(this.x, this.y);
         //graphics.draw(this.collisionShape);
     }
 
     @Override
-    public void update(GameContainer gameContainer, int delta) throws SlickException, InterruptedException {
+      public void update(GameContainer gameContainer, int delta) throws SlickException, InterruptedException {
         Random random = new Random();
         this.y += (float) delta / this.speed;
         if (this.y > 1080) {
