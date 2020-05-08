@@ -48,8 +48,9 @@ public class UFO implements CollisionActor {
 
     @Override
     public void update(GameContainer gameContainer, int delta) throws SlickException, InterruptedException {
-        this.y += (float) delta / this.speed;
-        this.x += (float) delta / this.speed;
+        Random random = new Random();
+        this.y += (float) delta / this.speed * random.nextInt(3);
+        this.x += (float) delta / this.speed * random.nextInt(5);
         if (this.y > 1080) {
             this.y = 0;
         }
