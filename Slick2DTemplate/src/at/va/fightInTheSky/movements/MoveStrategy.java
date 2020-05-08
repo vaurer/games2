@@ -1,17 +1,23 @@
 package at.va.fightInTheSky.movements;
 
-public class LeftMoveStrategy {
+import java.util.Random;
+
+public class MoveStrategy {
     private float x, y, speed;
 
-    public LeftMoveStrategy(float x, float y, float speed) {
-        this.x = x;
-        this.y = y;
-        this.speed = speed;
+    public MoveStrategy(float x, float y, float speed) {
+        Random random = new Random();
+        this.x = random.nextInt(7);
+        this.y = random.nextInt(7);
+        this.speed = random.nextInt(7);
     }
 
     public void update(int delta) {
-        this.x += (float) delta / this.speed;
-        this.y += (float) delta / this.speed;
+        Random random = new Random();
+        int rand = new Random().nextInt((4 - 2) + 1) + 2;
+        int rand2 = new Random().nextInt((4 - 2) + 1) + 2;
+        this.x += rand;
+        this.y += rand2;
     }
 
     public float getX() {

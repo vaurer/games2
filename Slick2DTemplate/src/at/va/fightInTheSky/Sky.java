@@ -23,6 +23,7 @@ public class Sky extends BasicGame {
     private ScoreDisplay scoreDisplay;
     private double counter = 0;
     private Rocket rocket;
+    private UFO ufo;
 
     public Sky(String title) {
         super(title);
@@ -40,7 +41,8 @@ public class Sky extends BasicGame {
         generatePlayer();
         generateEnemy(3);
         generateClouds(60);
-        generateRocket(15);
+        generateRocket(8);
+        generateUfo();
     }
 
     @Override
@@ -174,5 +176,12 @@ public class Sky extends BasicGame {
             this.jetPlayer.addCollisionPartners(rocket);
             this.actors.add(rocket);
         }
+    }
+    public void generateUfo() throws SlickException {
+           UFO ufo = new UFO();
+            this.collisionActors.add(ufo);
+            this.jetPlayer.addCollisionPartners(ufo);
+            this.actors.add(ufo);
+
     }
 }
