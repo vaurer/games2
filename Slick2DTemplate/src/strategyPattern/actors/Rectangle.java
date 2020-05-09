@@ -6,26 +6,21 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import strategyPattern.movements.IMoveStrategy;
 
-public class Ellipse extends AbstractMovableActor {
+public class Rectangle implements IActor {
+    private IMoveStrategy moveStrategy;
 
-
-    public Ellipse(IMoveStrategy moveStrategy) {
-        super(moveStrategy);
+    public Rectangle(IMoveStrategy moveStrategy) {
+        this.moveStrategy = moveStrategy;
     }
 
     @Override
     public void render(Graphics graphics) {
-        graphics.fillOval(this.moveStrategy.getX(), this.moveStrategy.getY(), 50, 5);
-        graphics.setColor(Color.red);
+        graphics.drawRect(this.moveStrategy.getX(), this.moveStrategy.getY(), 10, 10);
+        graphics.setColor(Color.yellow);
     }
 
     @Override
     public void update(GameContainer gameContainer, int delta) throws SlickException, InterruptedException {
-        this.moveStrategy.update(delta);
-    }
-
-    @Override
-    public void getShape() {
-
+        moveStrategy.update(delta);
     }
 }

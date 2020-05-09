@@ -1,9 +1,7 @@
 package strategyPattern;
 
 import org.newdawn.slick.*;
-import strategyPattern.actors.Circle;
-import strategyPattern.actors.Ellipse;
-import strategyPattern.actors.IActor;
+import strategyPattern.actors.*;
 import strategyPattern.movements.IMoveStrategy;
 import strategyPattern.movements.LeftMoveStrategy;
 import strategyPattern.movements.RightMoveStrategy;
@@ -25,6 +23,7 @@ public class ObjectsGame extends BasicGame {
         this.actors = new ArrayList<>();
         IMoveStrategy rms = new RightMoveStrategy(random.nextInt(1920), random.nextInt(1080), 5);
         IMoveStrategy rms2 = new RightMoveStrategy(random.nextInt(1920), random.nextInt(1080), 5);
+        IMoveStrategy rms3 = new RightMoveStrategy(random.nextInt(1920), random.nextInt(1080), 3);
         IMoveStrategy lms = new LeftMoveStrategy((1920), random.nextInt(1080), 5);
         IMoveStrategy lms2 = new LeftMoveStrategy((1920), random.nextInt(1080), 5);
 
@@ -36,10 +35,12 @@ public class ObjectsGame extends BasicGame {
         this.actors.add(e1);
         Ellipse e2 = new Ellipse(rms);
         this.actors.add(e2);
-        Ellipse e3 = new Ellipse(lms2);
-        this.actors.add(e3);
-        Ellipse e4 = new Ellipse(rms2);
-        this.actors.add(e4);
+        Rectangle r1 = new Rectangle(lms2);
+        this.actors.add(r1);
+        Rectangle r2= new Rectangle(rms2);
+        this.actors.add(r2);
+        RectangleFilled rf1 = new RectangleFilled(rms3);
+        this.actors.add(rf1);
     }
 
     @Override
