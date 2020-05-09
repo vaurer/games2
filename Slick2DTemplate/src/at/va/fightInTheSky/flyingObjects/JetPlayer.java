@@ -6,6 +6,7 @@ import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.geom.Shape;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class JetPlayer implements CollisionActor {
@@ -51,7 +52,10 @@ public class JetPlayer implements CollisionActor {
 
         for (CollisionActor collisionActor : collisionActors) {
             if (this.collisionShape.intersects(collisionActor.getCollisionShape())) {
-                System.out.println("Player collision");
+                System.out.println("Player collision" + collisionActor);
+                double temp = collisionActors.indexOf(collisionActor);
+                collisionActors.remove(temp);
+                System.out.println(temp);
                 lives--;
                 this.x = 990;
                 this.y = 540;
@@ -63,13 +67,6 @@ public class JetPlayer implements CollisionActor {
                 }
             }
         }
-//        for (int i = 0; i < collisionActors.size(); i++) {
-//            for (int j = 0; j < collisionActors.size(); j++) {
-//                if (collisionActors.get(i) ==this.collisionActors && collisionActors.get(i).getCollisionShape().intersects(collisionActors.get(j).getCollisionShape()) && collisionActors.get(i) != collisionActors.get(j)) {
-//                    System.out.println("Player collision");
-//                }
-//            }
-//        }
     }
 
     public void addCollisionPartners(CollisionActor collisionActor) {
