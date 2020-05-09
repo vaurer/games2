@@ -160,12 +160,19 @@ public class Sky extends BasicGame {
                         collisionActors.remove(i);
                         System.out.println("remove: " + enemyCollisionActors.get(j));
                         enemyCollisionActors.remove(j);
-                        generateEnemy(1);
                         counter++;
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+            }
+        }
+    }
+
+    private void removeOutOfWindow(){
+        for (int i = 0; i <this.collisionActors.size() ; i++) {
+            if (this.collisionActors.get(i).getCollisionShape().getY()< -500){
+                this.collisionActors.remove(i);
             }
         }
     }

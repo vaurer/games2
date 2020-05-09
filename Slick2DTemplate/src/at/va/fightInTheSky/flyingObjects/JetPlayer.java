@@ -53,9 +53,10 @@ public class JetPlayer implements CollisionActor {
         for (CollisionActor collisionActor : collisionActors) {
             if (this.collisionShape.intersects(collisionActor.getCollisionShape())) {
                 System.out.println("Player collision" + collisionActor);
-                double temp = collisionActors.indexOf(collisionActor);
-                collisionActors.remove(temp);
+                int  temp = collisionActors.indexOf(collisionActor);
                 System.out.println(temp);
+               // collisionActors.remove(temp);
+               //collisionActors.remove(collisionActor);
                 lives--;
                 this.x = 990;
                 this.y = 540;
