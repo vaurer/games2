@@ -48,27 +48,18 @@ public class SnakeBoard extends BasicGame {
 
     }
 
-//    @Override
-//    public void keyPressed(int key, char c) {
-//        super.keyPressed(key, c);
-//        if ()
-//    }
-
     public void createPlayer() {
-        Player player = new Player();
-        this.actorList.add(player);
+        Head head = new Head();
+        this.actorList.add(head);
     }
 
     public void createPoint(){
         Random random = new Random();
-        int tempX = random.nextInt(594);
-        int tempY = random.nextInt(594);
-        Point point = new Point(tempX, tempY);
-        this.actorList.add(point);
-//        for (int i = 0; i <this.width ; i++) {
-//            for (int j = 0; j <this.high ; j++) {
-//                if (t)
-//            }
-//        }
+            int tempX = random.nextInt(30);
+            int tempY = random.nextInt(30);
+            int tempXFinal = tempX*20;
+            int tempYFinal = tempY*20;
+            Point point = new Point(tempXFinal, tempYFinal);
+            this.actorList.add(point);
     }
 }

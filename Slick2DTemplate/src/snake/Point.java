@@ -4,21 +4,22 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Point implements IActor {
+public class Point implements ICollisionActor {
     private float x, y, speed;
-    private List<IActor> actorList;
+    private List<ICollisionActor> actorList;
     private Shape collisionShape;
 
     public Point(float x, float y) {
         this.x = x;
         this.y = y;
         this.actorList = new ArrayList<>();
-        this.collisionShape = collisionShape;
+        this.collisionShape = new Rectangle(0, 0, 20, 20);;
     }
 
     @Override
@@ -35,8 +36,8 @@ public class Point implements IActor {
     public void update(GameContainer gameContainer) throws SlickException, InterruptedException {
         this.x = x;
         this.y = y;
-        this.collisionShape.setCenterX(this.x + 10);
-        this.collisionShape.setCenterY(this.y + 10);
+        this.collisionShape.setCenterX(this.x);
+        this.collisionShape.setCenterY(this.y);
         for (IActor actor : actorList) {
             if (this.collisionShape.intersects(actor.getCollisionShape())) {
 
@@ -45,43 +46,13 @@ public class Point implements IActor {
 
     }
 
+    @Override
     public Shape getCollisionShape() {
         return collisionShape;
     }
 
+    @Override
     public void addEnemyCollisionPartner() {
-    }
 
-
-    public void addCollisionPartner(Player player) {
-        this.actorList.add(player);
-    }
-
-    public float getX() {
-        return x;
-    }
-
-    public void setX(float x) {
-        this.x = x;
-    }
-
-    public float getY() {
-        return y;
-    }
-
-    public void setY(float y) {
-        this.y = y;
-    }
-
-    public List<IActor> getActorList() {
-        return actorList;
-    }
-
-    public void setActorList(List<IActor> actorList) {
-        this.actorList = actorList;
-    }
-
-    public void setCollisionShape(Shape collisionShape) {
-        this.collisionShape = collisionShape;
     }
 }

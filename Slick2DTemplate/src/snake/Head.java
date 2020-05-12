@@ -10,22 +10,21 @@ import org.newdawn.slick.geom.Shape;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Player implements IActor {
+public class Head implements IActor {
 
     enum DIRECTION {UP, DOWN, LEFT, RIGHT, WAIT}
 
     private float x, y, l, speed;
-    private List<IActor> actorList;
+    private List<ICollisionActor> actorList;
     private Shape collisionShape;
     private DIRECTION direction;
     private int timer;
 
-    public Player() {
+    public Head() {
         this.l = 0;
         this.x = 0;
         this.y = 0;
-        this.speed = 1f;
-        this.actorList = actorList;
+        this.speed = 10000f;
         this.collisionShape = new Rectangle(0, 0, 20, 20);
         this.actorList = new ArrayList<>();
         this.direction = DIRECTION.WAIT;
@@ -59,29 +58,16 @@ public class Player implements IActor {
         if (this.timer > temp) {
             timer=0;
             move();
-//            if (this.direction == DIRECTION.RIGHT) {
-//                this.x += 20;
-//                timer=0;
-//            } else if (this.direction == DIRECTION.LEFT) {
-//                this.x -= 20;
-//                timer=0;
-//            } else if (this.direction == DIRECTION.UP) {
-//                this.y -= 20;
-//                timer=0;
-//            } else if (this.direction == DIRECTION.DOWN) {
-//                this.y += 20;
-//                timer=0;
-//            } else if (this.direction == DIRECTION.WAIT) {
-//            }
-
         }
         for (
                 IActor actor : actorList) {
             if (this.collisionShape.intersects(actor.getCollisionShape())) {
                 collisionShape.setX(x);
+                collisionShape.setY(y);
             }
         }
         System.out.println(this.x);
+        System.out.println(this.y);
     }
 
     public Shape getCollisionShape() {
