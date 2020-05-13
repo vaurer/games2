@@ -10,30 +10,28 @@ import org.newdawn.slick.geom.Shape;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Head implements IActor {
+public class Head implements ICollisionActor {
 
     enum DIRECTION {UP, DOWN, LEFT, RIGHT, WAIT}
 
-    private float x, y, l, speed;
-    private List<ICollisionActor> actorList;
+    private float x, y;
+    private List<Point> points;
     private Shape collisionShape;
     private DIRECTION direction;
     private int timer;
 
     public Head() {
-        this.l = 0;
         this.x = 0;
         this.y = 0;
-        this.speed = 10000f;
         this.collisionShape = new Rectangle(0, 0, 20, 20);
-        this.actorList = new ArrayList<>();
+        this.points = new ArrayList<Point>( );
         this.direction = DIRECTION.WAIT;
     }
 
     @Override
     public void render(Graphics graphics) throws SlickException {
-        graphics.fillRect(this.x, this.y, 20, 20);
-        graphics.draw(collisionShape);
+        graphics.fillOval(this.x, this.y, 20, 20);
+        graphics.draw(this.collisionShape);
     }
 
     @Override
@@ -54,29 +52,24 @@ public class Head implements IActor {
         this.collisionShape.setCenterY(this.y + 10);
 
         this.timer += delta;
-        int temp = 100;
+        int temp = 500;
         if (this.timer > temp) {
-            timer=0;
+            timer = 0;
             move();
         }
-        for (
-                IActor actor : actorList) {
-            if (this.collisionShape.intersects(actor.getCollisionShape())) {
-                collisionShape.setX(x);
-                collisionShape.setY(y);
-            }
-        }
-        System.out.println(this.x);
-        System.out.println(this.y);
+        hasEatFood();
+        removeCollisions();
+
+
     }
 
     public Shape getCollisionShape() {
         return collisionShape;
     }
 
-    @Override
-    public void addEnemyCollisionPartner() {
-
+    public void addPointToTheList(Point point) {
+        this.points.add(point);
+        System.out.println("added to " + this.points.add(point));
     }
 
     public void move() {
@@ -96,10 +89,6 @@ public class Head implements IActor {
         }
     }
 
-    public void addEnemyCollisionPartner(Point point) {
-        this.actorList.add(point);
-    }
-
     public float getX() {
         return x;
     }
@@ -108,4 +97,31 @@ public class Head implements IActor {
         return y;
     }
 
+    public List<Point> getPoints() {
+        return points;
+    }
+
+    private boolean hasEatFood() {
+
+        boolean hasEatFood = false;
+
+        for (Point point : points) {
+            if (point.getCollisionShape().intersects(this.collisionShape)) {
+                hasEatFood = true;
+                System.out.println("The snake eat something");
+            }
+        }
+        return hasEatFood;
+    }
+    private void removeCollisions(){
+        try {
+            for (Point point : points) {
+                if (point.getCollisionShape().intersects(this.collisionShape)) {
+                        points.remove(point);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

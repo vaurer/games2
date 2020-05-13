@@ -10,30 +10,31 @@ import org.newdawn.slick.geom.Shape;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Point implements ICollisionActor {
-    private float x, y, speed;
+public class Body implements ICollisionActor{
+    private float x, y;
     private Shape collisionShape;
+    private List<Body> bodies;
 
-    public Point(float x, float y) {
+    public Body() {
         this.x = x;
         this.y = y;
         this.collisionShape = new Rectangle(this.x, this.y, 20, 20);
+        this.bodies = new ArrayList<Body>();
     }
 
     @Override
     public void render(Graphics graphics) throws SlickException {
-        graphics.fillOval(this.x, this.y, 20, 20);
-        graphics.setColor(Color.magenta);
-        graphics.draw(this.collisionShape);
-
+        graphics.fillRect(this.x, this.y, 20, 20);
+        graphics.setColor(Color.yellow);
     }
 
     @Override
     public void update(GameContainer gameContainer, int delta) throws SlickException, InterruptedException {
-        this.collisionShape.setCenterX(this.x+10);
-        this.collisionShape.setCenterY(this.y+10);
+        this.x = x;
+        this.y = y;
+        this.collisionShape.setCenterX(this.x);
+        this.collisionShape.setCenterY(this.y);
     }
-
 
     @Override
     public Shape getCollisionShape() {
@@ -55,13 +56,4 @@ public class Point implements ICollisionActor {
     public void setY(float y) {
         this.y = y;
     }
-
-    public float getSpeed() {
-        return speed;
-    }
-
-    public void setSpeed(float speed) {
-        this.speed = speed;
-    }
-
 }
