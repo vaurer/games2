@@ -10,21 +10,22 @@ import org.newdawn.slick.geom.Shape;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Head implements ICollisionActor {
+public class Head implements IActor {
 
-    enum DIRECTION {UP, DOWN, LEFT, RIGHT, WAIT}
 
     private float x, y;
     private List<Point> points;
     private Shape collisionShape;
     private DIRECTION direction;
     private int timer;
+    private List<Body> parts;
 
     public Head() {
         this.x = 0;
         this.y = 0;
-        this.collisionShape = new Rectangle(0, 0, 20, 20);
-        this.points = new ArrayList<Point>( );
+        this.collisionShape = new Rectangle(0, 0, 10, 10);
+        this.points = new ArrayList<Point>();
+        this.parts = new ArrayList<Body>();
         this.direction = DIRECTION.WAIT;
     }
 
@@ -56,13 +57,12 @@ public class Head implements ICollisionActor {
         if (this.timer > temp) {
             timer = 0;
             move();
+            hasEatFood();
+            removeCollisions();
         }
-        hasEatFood();
-        removeCollisions();
-
-
     }
 
+    @Override
     public Shape getCollisionShape() {
         return collisionShape;
     }
@@ -109,19 +109,33 @@ public class Head implements ICollisionActor {
             if (point.getCollisionShape().intersects(this.collisionShape)) {
                 hasEatFood = true;
                 System.out.println("The snake eat something");
+                addBodyPart();
+                System.out.println("added");
             }
         }
         return hasEatFood;
     }
     private void removeCollisions(){
-        try {
-            for (Point point : points) {
-                if (point.getCollisionShape().intersects(this.collisionShape)) {
-                        points.remove(point);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        for (int i = 0; i <points.size() ; i++) {
+            points.remove(i);
         }
+    }
+
+    private void addBodyPart() {
+        Body body = new Body();
+        if (this.direction==direction.UP){
+            body.setX(this.x);
+            body.setY(this.y+20);
+        } else if (this.direction==direction.DOWN) {
+            body.setX(this.x);
+            body.setY(this.y - 20);
+        }else if (this.direction==direction.LEFT) {
+            body.setX(this.x-20);
+            body.setY(this.y);
+        }else if (this.direction==direction.RIGHT) {
+            body.setX(this.x+20);
+            body.setY(this.y);
+        }
+        this.parts.add(body);
     }
 }

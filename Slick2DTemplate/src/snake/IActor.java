@@ -11,4 +11,5 @@ public interface IActor {
     public void render(Graphics graphics) throws SlickException;
 
     public void update(GameContainer gameContainer, int delta) throws SlickException, InterruptedException;
+    public Shape getCollisionShape();
 }

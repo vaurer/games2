@@ -18,7 +18,7 @@ public class Body implements ICollisionActor{
     public Body() {
         this.x = x;
         this.y = y;
-        this.collisionShape = new Rectangle(this.x, this.y, 20, 20);
+        this.collisionShape = new Rectangle(this.x, this.y, 15, 15);
         this.bodies = new ArrayList<Body>();
     }
 

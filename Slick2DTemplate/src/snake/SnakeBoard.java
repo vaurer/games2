@@ -7,11 +7,17 @@ import java.util.List;
 import java.util.Random;
 
 public class SnakeBoard extends BasicGame {
-    //private List<IActor> actorList;
     private List<ICollisionActor> iCollisionActors;
-    //private List <Head> heads;
+    private List<IActor> iActors;
 
     private Head head;
+    private Body parts;
+
+    public void setPoint(Point point) {
+        this.point = point;
+    }
+
+    private Point point;
 
     public SnakeBoard(String title) {
         super(title);
@@ -19,8 +25,8 @@ public class SnakeBoard extends BasicGame {
 
     @Override
     public void init(GameContainer gameContainer) throws SlickException {
-        //this.actorList = new ArrayList<IActor>();
         this.iCollisionActors = new ArrayList<ICollisionActor>();
+        this.iActors = new ArrayList<IActor>();
         createPlayer();
         createPoint();
         gameContainer.getGraphics().setBackground(new Color(0.4f, 0.5f, 0.9f));
@@ -35,6 +41,19 @@ public class SnakeBoard extends BasicGame {
                 e.printStackTrace();
             }
         }
+        for (IActor iActor : iActors) {
+            try {
+                iActor.update(gameContainer, delta);
+                for (int i = 0; i <iCollisionActors.size() ; i++) {
+                    if (iCollisionActors.get(i).getCollisionShape().intersects(iActor.getCollisionShape())){
+                        iCollisionActors.remove(i);
+                        createPoint();
+                    }
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
@@ -42,6 +61,10 @@ public class SnakeBoard extends BasicGame {
         for (ICollisionActor iCollisionActor : iCollisionActors) {
             iCollisionActor.render(graphics);
         }
+        for (IActor iActor : iActors) {
+            iActor.render(graphics);
+        }
+
     }
 
     public static void main(String[] args) throws SlickException {
@@ -53,29 +76,19 @@ public class SnakeBoard extends BasicGame {
     public void createPlayer() {
         Head head = new Head();
         this.head = head;
-        //this.actorList.add(head);
-        this.iCollisionActors.add(head);
-        Body body = new Body();
+        this.iActors.add(head);
     }
 
     public void createPoint() {
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 1; i++) {
             Random random = new Random();
             int tempX = random.nextInt(30);
             int tempY = random.nextInt(30);
             int tempXFinal = tempX * 20;
             int tempYFinal = tempY * 20;
             Point point = new Point(tempXFinal, tempYFinal);
-            //this.actorList.add(point);
             this.iCollisionActors.add(point);
             this.head.addPointToTheList(point);
         }
     }
-
-//    private void removeICollisionActor() {
-//        for (ICollisionActor iCollisionActor : iCollisionActors) {
-//            if (iCollisionActor.getCollisionShape().intersects())
-//
-//        }
-//    }
 }
