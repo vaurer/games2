@@ -14,12 +14,15 @@ public class Body implements ICollisionActor{
     private float x, y;
     private Shape collisionShape;
     private List<Body> bodies;
+    private DIRECTION direction;
 
     public Body() {
         this.x = x;
         this.y = y;
         this.collisionShape = new Rectangle(this.x, this.y, 15, 15);
         this.bodies = new ArrayList<Body>();
+        this.direction = DIRECTION.WAIT;
+
     }
 
     @Override
