@@ -27,8 +27,8 @@ public class Point implements ICollisionActor {
     @Override
     public void render(Graphics graphics) throws SlickException {
         graphics.fillOval(this.x, this.y, 20, 20);
-        graphics.setColor(Color.magenta);
         graphics.draw(this.collisionShape);
+        graphics.setColor(Color.red);
     }
 
     @Override

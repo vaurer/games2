@@ -1,31 +1,29 @@
 package snake;
 
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Input;
-import org.newdawn.slick.SlickException;
+import org.newdawn.slick.*;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Head implements IActor {
+public class Head implements IActor, ISnake {
 
 
     private float x, y;
     private List<Point> points;
+    //private List<Body> parts;
     private Shape collisionShape;
     private DIRECTION direction;
     private int timer;
-    private List<Body> parts;
+    private Body body;
 
     public Head() {
         this.x = 0;
         this.y = 0;
         this.collisionShape = new Rectangle(0, 0, 10, 10);
         this.points = new ArrayList<Point>();
-        this.parts = new ArrayList<Body>();
+        //this.parts = new ArrayList<Body>();
         this.direction = DIRECTION.WAIT;
     }
 
@@ -33,6 +31,7 @@ public class Head implements IActor {
     public void render(Graphics graphics) throws SlickException {
         graphics.fillOval(this.x, this.y, 20, 20);
         graphics.draw(this.collisionShape);
+        graphics.setColor(Color.magenta);
     }
 
     @Override
@@ -57,8 +56,10 @@ public class Head implements IActor {
         if (this.timer > temp) {
             timer = 0;
             move();
-            hasEatFood();
-            removeCollisions();
+            if (hasEatFood() == true) {
+                removeCollisions();
+//                addBodyToTheList(body);
+            }
         }
     }
 
@@ -71,6 +72,10 @@ public class Head implements IActor {
         this.points.add(point);
         System.out.println("added to " + this.points.add(point));
     }
+
+//    public void addBodyToTheList(Body body) {
+//        this.parts.add(body);
+//    }
 
     public void move() {
         switch (this.direction) {
@@ -101,15 +106,16 @@ public class Head implements IActor {
         return points;
     }
 
+    public DIRECTION getDirection() {
+        return direction;
+    }
+
     private boolean hasEatFood() {
-
         boolean hasEatFood = false;
-
         for (Point point : points) {
             if (point.getCollisionShape().intersects(this.collisionShape)) {
                 hasEatFood = true;
                 System.out.println("The snake eat something");
-                addBodyPart();
                 System.out.println("added");
             }
         }
@@ -119,23 +125,5 @@ public class Head implements IActor {
         for (int i = 0; i <points.size() ; i++) {
             points.remove(i);
         }
-    }
-
-    private void addBodyPart() {
-        Body body = new Body();
-        if (this.direction==direction.UP){
-            body.setX(this.x);
-            body.setY(this.y+20);
-        } else if (this.direction==direction.DOWN) {
-            body.setX(this.x);
-            body.setY(this.y - 20);
-        }else if (this.direction==direction.LEFT) {
-            body.setX(this.x-20);
-            body.setY(this.y);
-        }else if (this.direction==direction.RIGHT) {
-            body.setX(this.x+20);
-            body.setY(this.y);
-        }
-        this.parts.add(body);
     }
 }
