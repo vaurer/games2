@@ -43,7 +43,9 @@ public class SnakeBoard extends BasicGame {
                     if (iCollisionActors.get(i).getCollisionShape().intersects(head.getCollisionShape())) {
                         iCollisionActors.remove(i);
                         createPoint();
-                        addBodyPart();
+                        addBodyParts();
+                        addFirstBodyPart();
+
                     }
                 }
             } catch (InterruptedException e) {
@@ -88,34 +90,69 @@ public class SnakeBoard extends BasicGame {
         }
     }
 
-    private void addBodyPart() {
-        float tempX = 20;
-        float tempY = 20;
-        DIRECTION directionTemp = this.head.getDirection();
-        switch (this.head.getDirection()) {
-            case UP:
-                tempY = this.head.getX() + 20;
-                tempX = this.head.getY();
-                break;
-            case DOWN:
-                tempY = this.head.getY() - 20;
-                tempX = this.head.getX();
-                break;
-            case LEFT:
-                tempX = this.head.getX() + 20;
-                tempY = this.head.getY();
-                break;
-            case RIGHT:
-                tempX = this.head.getX() - 20;
-                tempY = this.head.getY();
-                break;
-        }
-        Body body = new Body(tempX, tempY, directionTemp);
-        this.snakeParts.add(body);
-        for (int i = 0; i < snakeParts.size(); i++) {
-            System.out.println(snakeParts.get(i));
+    private void addFirstBodyPart() {
+        if (snakeParts.size() == 0) {
+            float tempX = 20;
+            float tempY = 20;
+            DIRECTION directionTemp = this.head.getDirection();
+            switch (this.head.getDirection()) {
+                case UP:
+                    tempY = this.head.getX() + 20;
+                    tempX = this.head.getY();
+                    break;
+                case DOWN:
+                    tempY = this.head.getY() - 20;
+                    tempX = this.head.getX();
+                    break;
+                case LEFT:
+                    tempX = this.head.getX() + 20;
+                    tempY = this.head.getY();
+                    break;
+                case RIGHT:
+                    tempX = this.head.getX() - 20;
+                    tempY = this.head.getY();
+                    break;
+            }
+            Body body = new Body(tempX, tempY, directionTemp);
+            this.snakeParts.add(body);
+            for (int i = 0; i < snakeParts.size(); i++) {
+                System.out.println(snakeParts.get(i));
+            }
         }
     }
+
+    private void addBodyParts() {
+        if (this.snakeParts.size() > 0) {
+            float tempX = 20;
+            float tempY = 20;
+            DIRECTION directionTemp = snakeParts.get(snakeParts.size()).getDirection();
+            switch (snakeParts.get(snakeParts.size()).getDirection()) {
+                case UP:
+                    tempY = snakeParts.get(snakeParts.size()).getY() + 20;
+                    tempX = snakeParts.get(snakeParts.size()).getX();
+                    break;
+                case DOWN:
+                    tempY = snakeParts.get(snakeParts.size()).getY() - 20;
+                    tempX = snakeParts.get(snakeParts.size()).getX();
+                    break;
+                case LEFT:
+                    tempX = snakeParts.get(snakeParts.size()).getX() + 20;
+                    tempY = snakeParts.get(snakeParts.size()).getY();
+                    break;
+                case RIGHT:
+                    tempX = snakeParts.get(snakeParts.size()).getX() - 20;
+                    tempY = snakeParts.get(snakeParts.size()).getY();
+                    break;
+            }
+            Body body = new Body(tempX, tempY, directionTemp);
+            this.snakeParts.add(body);
+            for (int j = 0; j < snakeParts.size(); j++) {
+                System.out.println(snakeParts.get(j));
+            }
+        }
+
+    }
+
 
     private void setPositionForFirstBodyPart() {
         if (snakeParts.size() >= 1) {
@@ -151,26 +188,26 @@ public class SnakeBoard extends BasicGame {
     private void setPositionForBodyParts() {
         if (snakeParts.size() >= 2) {
             for (int i = snakeParts.size(); i >= 1; i--) {
-                switch (this.snakeParts.get(i-1).getDirection()) {
+                switch (this.snakeParts.get(i - 1).getDirection()) {
                     case UP:
-                        snakeParts.get(i).setX(this.snakeParts.get(i-1).getX());
-                        snakeParts.get(i).setY(this.snakeParts.get(i-1).getY() + 20);
-                        snakeParts.get(i).setDirection(this.snakeParts.get(i-1).getDirection());
+                        snakeParts.get(i).setX(this.snakeParts.get(i - 1).getX());
+                        snakeParts.get(i).setY(this.snakeParts.get(i - 1).getY() + 20);
+                        snakeParts.get(i).setDirection(this.snakeParts.get(i - 1).getDirection());
                         break;
                     case DOWN:
-                        snakeParts.get(i).setX(this.snakeParts.get(i-1).getX());
-                        snakeParts.get(i).setY(this.snakeParts.get(i-1).getY() - 20);
-                        snakeParts.get(i).setDirection(this.snakeParts.get(i-1).getDirection());
+                        snakeParts.get(i).setX(this.snakeParts.get(i - 1).getX());
+                        snakeParts.get(i).setY(this.snakeParts.get(i - 1).getY() - 20);
+                        snakeParts.get(i).setDirection(this.snakeParts.get(i - 1).getDirection());
                         break;
                     case LEFT:
-                        snakeParts.get(i).setX(this.snakeParts.get(i-1).getX() + 20);
-                        snakeParts.get(i).setY(this.snakeParts.get(i-1).getY());
-                        snakeParts.get(i).setDirection(this.snakeParts.get(i-1).getDirection());
+                        snakeParts.get(i).setX(this.snakeParts.get(i - 1).getX() + 20);
+                        snakeParts.get(i).setY(this.snakeParts.get(i - 1).getY());
+                        snakeParts.get(i).setDirection(this.snakeParts.get(i - 1).getDirection());
                         break;
                     case RIGHT:
-                        snakeParts.get(i).setX(this.snakeParts.get(i-1).getX() - 20);
-                        snakeParts.get(i).setY(this.snakeParts.get(i-1).getY());
-                        snakeParts.get(i).setDirection(this.snakeParts.get(i-1).getDirection());
+                        snakeParts.get(i).setX(this.snakeParts.get(i - 1).getX() - 20);
+                        snakeParts.get(i).setY(this.snakeParts.get(i - 1).getY());
+                        snakeParts.get(i).setDirection(this.snakeParts.get(i - 1).getDirection());
                         break;
                 }
             }
