@@ -28,8 +28,9 @@ public class Body implements ISnake, ICollisionActor{
 
     @Override
     public void render(Graphics graphics) throws SlickException {
-        graphics.fillRect(this.x, this.y, 20, 20);
-        graphics.setColor(Color.yellow);
+        graphics.fillOval(this.x,this.y, 20,20);
+        graphics.setColor(Color.black);
+        graphics.draw(this.collisionShape);
     }
 
     @Override

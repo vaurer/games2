@@ -8,12 +8,8 @@ import java.util.Random;
 
 public class SnakeBoard extends BasicGame {
     private List<ICollisionActor> iCollisionActors;
-    private List<IActor> iActors;
-    private List<Body> parts;
-    private List<ISnake> snakeParts;
+    private List<Body> snakeParts;
     private Head head;
-
-
     public void setPoint(Point point) {
         this.point = point;
     }
@@ -27,9 +23,7 @@ public class SnakeBoard extends BasicGame {
     @Override
     public void init(GameContainer gameContainer) throws SlickException {
         this.iCollisionActors = new ArrayList<ICollisionActor>();
-        this.iActors = new ArrayList<IActor>();
-        this.parts = new ArrayList<Body>();
-        this.snakeParts = new ArrayList<ISnake>();
+        this.snakeParts = new ArrayList<Body>();
         createPlayer();
         createPoint();
         gameContainer.getGraphics().setBackground(new Color(0.4f, 0.5f, 0.9f));
@@ -37,43 +31,26 @@ public class SnakeBoard extends BasicGame {
 
     @Override
     public void update(GameContainer gameContainer, int delta) throws SlickException {
-
+        try {
+            head.update(gameContainer, delta);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         for (ICollisionActor iCollisionActor : iCollisionActors) {
             try {
                 iCollisionActor.update(gameContainer, delta);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        for (Body body : parts) {
-            try {
-                body.update(gameContainer, delta);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        for (IActor iActor : iActors) {
-            try {
-                iActor.update(gameContainer, delta);
                 for (int i = 0; i < iCollisionActors.size(); i++) {
-                    if (iCollisionActors.get(i).getCollisionShape().intersects(iActor.getCollisionShape())) {
+                    if (iCollisionActors.get(i).getCollisionShape().intersects(head.getCollisionShape())) {
                         iCollisionActors.remove(i);
                         createPoint();
-                        //addBodyPart();
+                        addBodyPart();
                     }
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-        for (ISnake iSnake : snakeParts) {
-            try {
-                iSnake.update(gameContainer, delta);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-
+        setPositionForFirstBodyPart();
     }
 
     @Override
@@ -81,12 +58,10 @@ public class SnakeBoard extends BasicGame {
         for (ICollisionActor iCollisionActor : iCollisionActors) {
             iCollisionActor.render(graphics);
         }
-        for (IActor iActor : iActors) {
-            iActor.render(graphics);
-        }
-        for (Body body : parts) {
+        for (Body body : snakeParts) {
             body.render(graphics);
         }
+        head.render(graphics);
     }
 
     public static void main(String[] args) throws SlickException {
@@ -98,8 +73,6 @@ public class SnakeBoard extends BasicGame {
     public void createPlayer() {
         Head head = new Head();
         this.head = head;
-        this.iActors.add(head);
-        this.snakeParts.add(head);
     }
 
     public void createPoint() {
@@ -112,6 +85,95 @@ public class SnakeBoard extends BasicGame {
             Point point = new Point(tempXFinal, tempYFinal);
             this.iCollisionActors.add(point);
             this.head.addPointToTheList(point);
+        }
+    }
+
+    private void addBodyPart() {
+        float tempX = 20;
+        float tempY = 20;
+        DIRECTION directionTemp = this.head.getDirection();
+        switch (this.head.getDirection()) {
+            case UP:
+                tempY = this.head.getX() + 20;
+                tempX = this.head.getY();
+                break;
+            case DOWN:
+                tempY = this.head.getY() - 20;
+                tempX = this.head.getX();
+                break;
+            case LEFT:
+                tempX = this.head.getX() + 20;
+                tempY = this.head.getY();
+                break;
+            case RIGHT:
+                tempX = this.head.getX() - 20;
+                tempY = this.head.getY();
+                break;
+        }
+        Body body = new Body(tempX, tempY, directionTemp);
+        this.snakeParts.add(body);
+        for (int i = 0; i < snakeParts.size(); i++) {
+            System.out.println(snakeParts.get(i));
+        }
+    }
+
+    private void setPositionForFirstBodyPart() {
+        if (snakeParts.size() >= 1) {
+            switch (this.head.getDirection()) {
+                case UP:
+                    snakeParts.get(0).setX(this.head.getX());
+                    snakeParts.get(0).setY(this.head.getY() + 20);
+                    snakeParts.get(0).setDirection(this.head.getDirection());
+                    System.out.println("UP");
+                    break;
+                case DOWN:
+                    snakeParts.get(0).setX(this.head.getX());
+                    snakeParts.get(0).setY(this.head.getY() - 20);
+                    snakeParts.get(0).setDirection(this.head.getDirection());
+                    System.out.println("D");
+                    break;
+                case LEFT:
+                    snakeParts.get(0).setX(this.head.getX() + 20);
+                    snakeParts.get(0).setY(this.head.getY());
+                    snakeParts.get(0).setDirection(this.head.getDirection());
+                    System.out.println("L");
+                    break;
+                case RIGHT:
+                    snakeParts.get(0).setX(this.head.getX() - 20);
+                    snakeParts.get(0).setY(this.head.getY());
+                    snakeParts.get(0).setDirection(this.head.getDirection());
+                    System.out.println("R");
+                    break;
+            }
+        }
+    }
+
+    private void setPositionForBodyParts() {
+        if (snakeParts.size() >= 2) {
+            for (int i = snakeParts.size(); i >= 1; i--) {
+                switch (this.snakeParts.get(i-1).getDirection()) {
+                    case UP:
+                        snakeParts.get(i).setX(this.snakeParts.get(i-1).getX());
+                        snakeParts.get(i).setY(this.snakeParts.get(i-1).getY() + 20);
+                        snakeParts.get(i).setDirection(this.snakeParts.get(i-1).getDirection());
+                        break;
+                    case DOWN:
+                        snakeParts.get(i).setX(this.snakeParts.get(i-1).getX());
+                        snakeParts.get(i).setY(this.snakeParts.get(i-1).getY() - 20);
+                        snakeParts.get(i).setDirection(this.snakeParts.get(i-1).getDirection());
+                        break;
+                    case LEFT:
+                        snakeParts.get(i).setX(this.snakeParts.get(i-1).getX() + 20);
+                        snakeParts.get(i).setY(this.snakeParts.get(i-1).getY());
+                        snakeParts.get(i).setDirection(this.snakeParts.get(i-1).getDirection());
+                        break;
+                    case RIGHT:
+                        snakeParts.get(i).setX(this.snakeParts.get(i-1).getX() - 20);
+                        snakeParts.get(i).setY(this.snakeParts.get(i-1).getY());
+                        snakeParts.get(i).setDirection(this.snakeParts.get(i-1).getDirection());
+                        break;
+                }
+            }
         }
     }
 }
