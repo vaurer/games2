@@ -11,9 +11,8 @@ public class SnakeBoard extends BasicGame {
     private List<IActor> iActors;
     private List<Body> parts;
     private List<ISnake> snakeParts;
-
     private Head head;
-    //private Body parts;
+
 
     public void setPoint(Point point) {
         this.point = point;
@@ -38,7 +37,7 @@ public class SnakeBoard extends BasicGame {
 
     @Override
     public void update(GameContainer gameContainer, int delta) throws SlickException {
-        moveSnakeParts();
+
         for (ICollisionActor iCollisionActor : iCollisionActors) {
             try {
                 iCollisionActor.update(gameContainer, delta);
@@ -60,7 +59,7 @@ public class SnakeBoard extends BasicGame {
                     if (iCollisionActors.get(i).getCollisionShape().intersects(iActor.getCollisionShape())) {
                         iCollisionActors.remove(i);
                         createPoint();
-                        addBodyPart();
+                        //addBodyPart();
                     }
                 }
             } catch (InterruptedException e) {
@@ -82,16 +81,12 @@ public class SnakeBoard extends BasicGame {
         for (ICollisionActor iCollisionActor : iCollisionActors) {
             iCollisionActor.render(graphics);
         }
-//        for (IActor iActor : iActors) {
-//            iActor.render(graphics);
-//        }
-//        for (Body body : parts) {
-//            body.render(graphics);
-//        }
-        for (ISnake iSnake : snakeParts) {
-            iSnake.render(graphics);
+        for (IActor iActor : iActors) {
+            iActor.render(graphics);
         }
-
+        for (Body body : parts) {
+            body.render(graphics);
+        }
     }
 
     public static void main(String[] args) throws SlickException {
@@ -119,54 +114,5 @@ public class SnakeBoard extends BasicGame {
             this.head.addPointToTheList(point);
         }
     }
-
-    private void addBodyPart() {
-        float x = 0;
-        float y = 0;
-        DIRECTION direction = DIRECTION.WAIT;
-        switch (this.head.getDirection()) {
-            case UP:
-                x = this.head.getX();
-                y = this.head.getY() + 20;
-                direction = this.head.getDirection();
-                break;
-            case DOWN:
-                x = this.head.getX();
-                y = this.head.getY() - 20;
-                direction = this.head.getDirection();
-                break;
-            case LEFT:
-                x = this.head.getX() + 20;
-                y = this.head.getY();
-                direction = this.head.getDirection();
-                break;
-            case RIGHT:
-                x = this.head.getX() - 20;
-                y = this.head.getY();
-                direction = this.head.getDirection();
-                break;
-        }
-
-        Body body = new Body(x, y, direction);
-        this.parts.add(body);
-        this.snakeParts.add(body);
-        for (int i = 0; i < parts.size(); i++) {
-            System.out.println(parts.get(i)); // all body parts
-
-        }
-    }
-
-    private void moveSnakeParts() {
-        try {
-            if (snakeParts.size() > 1) {
-                for (int i = snakeParts.size(); i > 1 ; i--) {
-                    for (int j = snakeParts.size()-1; j <=0 ; j--) {
-                        snakeParts.get(i).getCollisionShape().setLocation(snakeParts.get(j).getCollisionShape().getX(), snakeParts.get(j).getCollisionShape().getY());
-                    }
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 }
+

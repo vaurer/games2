@@ -67,37 +67,4 @@ public class Body implements ISnake, ICollisionActor{
         return direction;
     }
 
-//    private int setXPosition() {
-//        switch (head.getDirection()) {
-//            case UP:
-//            case DOWN:
-//                x = head.getX();
-//                break;
-//            case LEFT:
-//                x = head.getX() + 20;
-//                break;
-//            case RIGHT:
-//                x = head.getX() - 20;
-//                break;
-//        }
-//        return (int) x;
-//    }
-//    private int setYPosition() {
-//        switch (head.getDirection()) {
-//            case UP:
-//
-//            case DOWN:
-//                y = head.getX();
-//                break;
-//            case LEFT:
-//            case RIGHT:
-//                y = head.getY();
-//                break;
-//        }
-//        return (int) y;
-//    }
-
-    public void moveBody() {
-        System.out.println();
-    }
 }
