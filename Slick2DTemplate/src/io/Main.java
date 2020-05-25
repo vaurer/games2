@@ -82,6 +82,7 @@ public class Main {
                 for (int i = 0; i <department.getPersons().size() ; i++) {
                     System.out.println(department.getPersons().get(i).getName());
                 }
+                System.out.println();
             }
 
         } catch (FileNotFoundException e) {
