@@ -5,10 +5,13 @@ public class Persons {
     private int age;
     private String street;
     private Department department;
+    private Department parentDepartment;
 
-    public Persons(String name, Department department) {
+
+    public Persons(String name, Department department, Department parentDepartment) {
         this.name = name;
         this.department = department;
+        this.parentDepartment = parentDepartment;
     }
 
     public String getName() {
@@ -25,5 +28,13 @@ public class Persons {
 
     public void setDepartment(Department department) {
         this.department = department;
+    }
+
+    public Department getParentDepartment() {
+        return parentDepartment;
+    }
+
+    public void setParentDepartment(Department parentDepartment) {
+        this.parentDepartment = parentDepartment;
     }
 }

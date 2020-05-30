@@ -5,11 +5,14 @@ import java.util.List;
 
 public class Department {
     private String name;
-    private List<Persons>persons;
+    private List<Persons> persons;
+    private ArrayList<Department> childDepartments;
+
 
     public Department(String name) {
         this.name = name;
         this.persons = new ArrayList<Persons>();
+        this.childDepartments = new ArrayList<Department>();
     }
 
     public String getName() {
@@ -28,7 +31,15 @@ public class Department {
         this.persons = persons;
     }
 
-    public void addPersonToTheList(Persons persons){
+    public void addPersonToTheList(Persons persons) {
         this.persons.add(persons);
+    }
+
+    public void addChildDepartment(Department department) {
+        this.childDepartments.add(department);
+    }
+
+    public ArrayList<Department> getChildDepartments() {
+        return childDepartments;
     }
 }
