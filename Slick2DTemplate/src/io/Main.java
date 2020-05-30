@@ -17,6 +17,11 @@ public class Main {
         File myFile = new File("C:\\Vedran\\Coding\\Code\\Java\\FightInTheSky\\Slick2DTemplate\\src\\io\\Abteilungen1.txt");
 
         FileReader reader = new FileReader(myFile);
+        try {
+            reader.skip(40);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         BufferedReader bufferedReader = new BufferedReader(reader);
 
         String line;
