@@ -7,12 +7,14 @@ public class Department {
     private String name;
     private List<Persons> persons;
     private ArrayList<Department> childDepartments;
+    private ArrayList<Department> parentDepartments;
 
 
     public Department(String name) {
         this.name = name;
         this.persons = new ArrayList<Persons>();
         this.childDepartments = new ArrayList<Department>();
+        this.parentDepartments = new ArrayList<Department>();
     }
 
     public String getName() {
@@ -41,5 +43,13 @@ public class Department {
 
     public ArrayList<Department> getChildDepartments() {
         return childDepartments;
+    }
+
+    public ArrayList<Department> getParentDepartments() {
+        return parentDepartments;
+    }
+
+    public void addParentDepartment(Department department) {
+        this.parentDepartments.add(department);
     }
 }

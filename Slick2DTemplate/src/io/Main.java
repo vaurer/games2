@@ -10,8 +10,7 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        Department parentDepartment = new Department("Parent department :");
-        List<Department> departments = new ArrayList<>();
+        List<Department> departments = new ArrayList<Department>();
         List<Persons> persons = new ArrayList<>();
         int temp = 0;
 
@@ -37,17 +36,52 @@ public class Main {
             }
             temp = 0;
 
-            String stringParentDepartment = null;
             try {
-                stringParentDepartment = splitted[2];
+                String stringParentDepartment = splitted[2];
             } catch (Exception e) {
-                System.out.println(name + " HAS NO PARENT DEPARTMENT");
+                //System.out.println(name + " HAS NO PARENT DEPARTMENT\n");
             }
-            Persons persons1 = new Persons(splitted[0].toString(), newDep, null);
+            try {
+                Department parDep = new Department(splitted[2].toString());
+                for (Department department : departments) {
+                    if (department.getName().equals(parDep.getName())) {
+                        temp++;
+                    }
+                }
+                if (temp == 0) {
+                    departments.add(parDep);
+                }
+                temp = 0;
+
+                for (Department department : departments) {
+                    if (department.getName().equals(newDep.getName()) && !department.getParentDepartments().contains(parDep)){
+                        department.addParentDepartment(parDep);
+//                        for (int i = 0; i <department.getParentDepartments().size() ; i++) {
+//                            System.out.println(department.getParentDepartments().get(i).getName());
+//                        }
+                    }
+                }
+            } catch (Exception e) {
+                //System.out.println("No valid parent department\n");
+            }
+
+
+            Persons persons1 = new Persons(splitted[0].toString(), newDep);
             persons.add(persons1);
+
+
         }
         for (Persons persons1 : persons) {
-            System.out.println(persons1.getName() + " " + persons1.getDepartment().getName());
+            System.out.println("NAME: \t" + persons1.getName() + "\t\t DEPARTMENT: \t" + persons1.getDepartment().getName());
+        }
+        System.out.println();
+
+        for (Department department : departments) {
+            try {
+                System.out.println("Department\t" + department.getName() + " has parent department "+department.getParentDepartments().get(0).getName());
+            } catch (Exception e) {
+                System.out.println("Department\t"+ department.getName() + " has no parent department");
+            }
         }
     }
 }
