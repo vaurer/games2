@@ -1,8 +1,6 @@
 package autoKonfigurator;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.util.Scanner;
 
 public class Main {
@@ -97,28 +95,39 @@ public class Main {
         auto1.setPS(ps);
 
         System.out.println(auto1.getBrand());
+        String autobrand = auto1.getBrand().toString();
         System.out.println(auto1.getGearbox());
+        String gearbox = auto1.getGearbox().toString();
         System.out.println(auto1.getFuel());
+        String fuel2 = auto1.getFuel().toString();
         System.out.println(auto1.getBodyDesign());
+        String design = auto1.getBodyDesign().toString();
         System.out.println(auto1.getPS());
 
         auto1.calculateVehiclePreis(auto1);
-        System.out.println(auto1.getPreis());
+        int preis1 = (int) auto1.getPreis();
 
-        int i;
-        char c;
 
-        //Path path = Paths.get("C:\\Users\\DCV\\Desktop\\Car.txt");
         File file = new File("C:\\Users\\DCV\\Desktop\\Car.txt");
 
         OutputStream outputStream = null;
 
-//        try {
-//            outputStream= new FileOutputStream(file);
-//            outputStream.write();
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        } finally {
-//        }
+        try {
+            outputStream= new FileOutputStream(file);
+            outputStream.write(autobrand.getBytes());
+            outputStream.write(';');
+            outputStream.write(gearBox.getBytes());
+            outputStream.write(';');
+            outputStream.write(fuel2.getBytes());
+            outputStream.write(';');
+            outputStream.write(design.getBytes());
+            outputStream.write(';');
+            outputStream.write(Integer.toString(preis1).getBytes());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+        }
     }
 }
