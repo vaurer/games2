@@ -1,3 +1,4 @@
 package autoKonfigurator;
 
-public enum Brand {Opel, BMW, Mercedes, Audi, Skoda, VW}
+public enum Brand {Opel, BMW, Mercedes, Audi, Skoda, VW;
+}

@@ -1,8 +1,12 @@
 package autoKonfigurator;
 
-import org.newdawn.slick.tests.SoundTest;
-
 public class Auto {
+    int PS;
+    double preis = 0;
+    Fuel fuel;
+    BodyDesign bodyDesign;
+    Gearbox gearbox;
+    Brand brand;
 
     public Auto(int PS, Fuel fuel, BodyDesign bodyDesign, Gearbox gearbox, Brand brand) {
         this.PS = PS;
@@ -12,61 +16,6 @@ public class Auto {
         this.brand = brand;
         this.preis = 0;
     }
-
-    public int getPS() {
-        return PS;
-    }
-
-    public void setPS(int PS) {
-        this.PS = PS;
-    }
-
-    public double getPreis() {
-        return preis;
-    }
-
-    public void setPreis(double preis) {
-        this.preis = preis;
-    }
-
-    public Fuel getFuel() {
-        return fuel;
-    }
-
-    public void setFuel(Fuel fuel) {
-        this.fuel = fuel;
-    }
-
-    public BodyDesign getBodyDesign() {
-        return bodyDesign;
-    }
-
-    public void setBodyDesign(BodyDesign bodyDesign) {
-        this.bodyDesign = bodyDesign;
-    }
-
-    public Gearbox getGearbox() {
-        return gearbox;
-    }
-
-    public void setGearbox(Gearbox gearbox) {
-        this.gearbox = gearbox;
-    }
-
-    public Brand getBrand() {
-        return brand;
-    }
-
-    public void setBrand(Brand brand) {
-        this.brand = brand;
-    }
-
-    int PS;
-    double preis = 0;
-    Fuel fuel;
-    BodyDesign bodyDesign;
-    Gearbox gearbox;
-    Brand brand;
 
     public double calculateVehiclePreis(Auto auto) {
         double preis = 0;
@@ -135,5 +84,52 @@ public class Auto {
         this.preis = preis;
         System.out.println(this.brand.name() + " ist " + this.preis + " wert");
         return preis;
+    }
+    public int getPS() {
+        return PS;
+    }
+
+    public void setPS(int PS) {
+        this.PS = PS;
+    }
+
+    public double getPreis() {
+        return preis;
+    }
+
+    public void setPreis(double preis) {
+        this.preis = preis;
+    }
+
+    public Fuel getFuel() {
+        return fuel;
+    }
+
+    public void setFuel(Fuel fuel) {
+        this.fuel = fuel;
+    }
+
+    public BodyDesign getBodyDesign() {
+        return bodyDesign;
+    }
+
+    public void setBodyDesign(BodyDesign bodyDesign) {
+        this.bodyDesign = bodyDesign;
+    }
+
+    public Gearbox getGearbox() {
+        return gearbox;
+    }
+
+    public void setGearbox(Gearbox gearbox) {
+        this.gearbox = gearbox;
+    }
+
+    public Brand getBrand() {
+        return brand;
+    }
+
+    public void setBrand(Brand brand) {
+        this.brand = brand;
     }
 }
